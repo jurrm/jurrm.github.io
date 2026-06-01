@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;            /* the canvas manages its own pan / zoom */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* no blue flash on tap; let inputs/textareas still be selectable */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Print: only the iso sheet shows on paper */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #iso-print-sheet,
+  #iso-print-sheet * {
+    visibility: visible;
+  }
+  #iso-print-sheet {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    z-index: 9999;
+  }
+  #iso-print-sheet .no-print {
+    display: none !important;
+  }
+  #iso-sheet-svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+  @page {
+    size: landscape;
+    margin: 8mm;
+  }
+}
